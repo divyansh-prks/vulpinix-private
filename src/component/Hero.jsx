@@ -1,6 +1,30 @@
 import React from "react";
+import { useUser } from "@clerk/clerk-react";
+import { Link ,  useNavigate } from "react-router-dom";
 
  const Hero = () => {
+
+  const {isSignedIn} = useUser();
+  const navigate = useNavigate()
+
+  const handleSignIn = () => {
+    if (isSignedIn) {
+      navigate("/dashboard")
+    }else {
+      navigate("sign-in")
+    }
+  }
+
+  const handleSignup = () => {
+    if(isSignedIn){
+      navigate("/dashboard")
+    }else{
+      navigate('/signup')
+    }
+  }
+
+
+
   return (
     <div className="relative w-full h-screen overflow-hidden">
       {/* Video Background */}
@@ -21,12 +45,19 @@ import React from "react";
         <div className="text-2xl font-bold">
             <img className="h-20" src="../src/assets/logo.png" alt="" />
         </div>
-        <div className="space-x-6 ">
-          <a href="#" className="hover:text-gray-300 text-2xl font-[Poppins]  ">Home</a>
-          <a href="#" className="hover:text-gray-300 text-2xl font-[Poppins] ">Contact</a>
-          <a href="#" className="hover:text-gray-300 text-2xl font-[Poppins] ">Campaign</a>
-          <a href="#" className="hover:text-gray-300 text-2xl font-[Poppins] ">About Us</a>
-        </div>
+        <div className="space-x-6">
+      <Link to="/" className="hover:text-gray-300 text-2xl font-[Poppins]">Home</Link>
+      <Link to="/contact" className="hover:text-gray-300 text-2xl font-[Poppins]">Contact</Link>
+      <Link to="/campaign" className="hover:text-gray-300 text-2xl font-[Poppins]">Campaign</Link>
+      <Link to="/about-us" className="hover:text-gray-300 text-2xl font-[Poppins]">About Us</Link>
+      
+      <button 
+        className="hover:text-gray-300 text-2xl font-[Poppins] cursor-pointer"
+        onClick={handleSignup}
+      >
+        Sign up
+      </button>
+    </div>
       </nav>
 
       {/* Hero Section */}
